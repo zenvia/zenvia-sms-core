@@ -103,7 +103,7 @@ zapi
     });
 ```
 
-### For full examples see on `code_examples/` in this project.
+### For full examples see on `_code_examples/` and `_payload_examples` in this project.
 
 # Development
 
