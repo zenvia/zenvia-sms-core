@@ -107,6 +107,8 @@ zapi
 
 # Development
 
+run `npm install`.
+
 ### Make tests
 for success send SMS tests case in api, fill `phone_number`, `zenvia_account`, `zenvia_token` on `test/api.test.js`.
 
