@@ -1,0 +1,12 @@
+{
+  "getSmsStatusResp": {
+    "id": "006",
+    "received": "2014-08-23T02:01:23",
+    "shortcode": 69788,
+    "mobileOperatorName": "claro",
+    "statusCode": "03",
+    "statusDescription": "Delivered",
+    "detailCode": "120",
+    "detailDescription": "Message received by mobile"
+  }
+}

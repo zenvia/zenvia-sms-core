@@ -1,0 +1,24 @@
+{
+  "sendSmsMultiRequest":{
+    "aggregateId":1750,
+    "sendSmsRequestList":
+    [
+      {
+        "from":"remetente",
+        "to":"555199999999",
+        "schedule":"2014-08-23T02:01:23",
+        "msg":"uma mensagem",
+        "callbackOption":"NONE",
+        "id":"003"
+      },
+      {
+        "from":"remetente",
+        "to":"555199999999",
+        "schedule":"2014-07-18T02:01:23",
+        "msg":"outra mensagem",
+        "callbackOption":"NONE",
+        "id":"004"
+      }
+    ]
+  }
+}

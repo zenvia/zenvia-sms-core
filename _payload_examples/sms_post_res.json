@@ -1,0 +1,8 @@
+{
+  "sendSmsResponse" : {
+    "statusCode" : "00",
+    "statusDescription" : "Ok",
+    "detailCode" : "000",
+    "detailDescription" : "Message Sent"
+  }
+}

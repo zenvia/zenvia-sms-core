@@ -1,0 +1,22 @@
+{
+  "sendSmsResponse" : {
+    "statusCode": "00",
+    "statusDescription": "Ok",
+    "detailCode": "000",
+    "detailDescription": "Message Sent",
+    "parts": [
+      {
+        "partId": "idteste_001",
+        "order": 1
+      },
+      {
+        "partId": "idteste_002",
+        "order": 2
+      },
+      {
+        "partId": "idteste_003",
+        "order": 3
+      }
+    ]
+  }
+}

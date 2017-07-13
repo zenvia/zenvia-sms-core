@@ -1,0 +1,24 @@
+{
+  "name": "zenvia-sms-core",
+  "version": "1.0.0",
+  "description": "Full and official implementation of Zenvia SMS API for NodeJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "author": "Jonatas Freitas <jonatasfreitasv@gmail.com> (https://github.com/jonatasfreitasv)",
+  "license": "MIT",
+  "dependencies": {
+    "figlet": "^1.2.0",
+    "restify": "^5.0.0",
+    "restify-plugins": "^1.6.0",
+    "unirest": "^0.5.1"
+  },
+  "engines": {
+    "node": ">=4.2.4"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2"
+  }
+}

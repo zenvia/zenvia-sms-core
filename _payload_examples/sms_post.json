@@ -1,0 +1,11 @@
+{
+  "sendSmsRequest": {
+    "from": "Remetente",
+    "to": "555199999999",
+    "schedule": "2014-08-22T14:55:00",
+    "msg": "Mensagem de teste",
+    "callbackOption": "NONE",
+    "id": "002",
+    "aggregateId": "1111"
+  }
+}
