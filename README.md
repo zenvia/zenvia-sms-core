@@ -83,7 +83,7 @@ let send_multi_sms_payload = {
             },
             {
                 from: "Zenvia",
-                to: "5551982193388",
+                to: "5551999999999",
                 schedule: null,
                 msg: "Hello Zenvia from NodeJS!!! 2",
                 callbackOption: "ALL",
