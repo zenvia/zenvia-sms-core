@@ -26,68 +26,40 @@ zcs.events.on('event', (data)=>{
 ### How to use Zenvia SMS API
 
 ```javascript
+/**
+ * Available methods:
+ *      setCredentials(account, token) - Set API Credentials
+ *      sendSMS(payload) - Send unique and multiple SMS
+ *      getSMSStatus(sms_id) - Get SMS status by ID
+ *      getSMSReceivedList() - Get received SMS list
+ *      getSMSReceivedListSearch(start_date, end_date) - Get received SMS list filtered by start and end date
+ *      cancelScheduledSMS(sms_id) - Cancel scheduled SMS by id
+ *
+ */
+
 const zapi = require('zenvia-sms-core').api;
 
 zapi.setCredentials('account', 'token');
 
 /* Send unique short and long SMS example
  */
-let send_sms_payload = {
-    sendSmsRequest: {
-        from: "Zenvia",
-        to: "5551999999999",
-        schedule: null,
-        msg: "Hello Zenvia from NodeJS!!!",
-        callbackOption: "ALL",
-        id: '001',
-        aggregateId: "002"
-    }
-};
-
-zapi
-    .sendSMS(send_sms_payload)
-    .then((res)=> {
-        console.log(res);
-    })
-    .catch((err)=> {
-        console.error(err);
-    });
-
-/*
- Send multiple SMS example
- */
-let send_multi_sms_payload = {
-    sendSmsMultiRequest: {
-        aggregateId: 1750,
-        sendSmsRequestList: [
-            {
+   zapi.sendSMS({
+            sendSmsRequest: {
                 from: "Zenvia",
                 to: "5551999999999",
                 schedule: null,
-                msg: "Hello Zenvia from NodeJS!!! 2",
+                msg: "Hello Zenvia from NodeJS!!!",
                 callbackOption: "ALL",
-                id: '001'
-            },
-            {
-                from: "Zenvia",
-                to: "5551999999999",
-                schedule: null,
-                msg: "Hello Zenvia from NodeJS!!! 2",
-                callbackOption: "ALL",
-                id: '001'
+                id: '001',
+                aggregateId: "002"
             }
-        ]
-    }
-};
-
-zapi
-    .sendSMS(send_multi_sms_payload)
-    .then((res)=> {
-        console.log(JSON.stringify(res));
-    })
-    .catch((err)=> {
-        console.error(err);
-    });
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 ```
 
 ### For full examples see on `_code_examples/` and `_payload_examples` in this project.
