@@ -14,11 +14,11 @@ Full and official implementation of Zenvia SMS API, send, monitor status and rec
 ### How to create Zenvia SMS Callbacks Server
 
 ```javascript
-let zenvia_cs = require('zenvia-sms-core').callbacksServer;
+let zcs = require('zenvia-sms-core').callbacksServer;
 
-zenvia_cs.startServer(81);
+zcs.startServer(81);
 
-zenvia_cs.events.on('event', (data)=>{
+zcs.events.on('event', (data)=>{
     console.log(data);
 });
 ```
@@ -26,19 +26,6 @@ zenvia_cs.events.on('event', (data)=>{
 ### How to use Zenvia SMS API
 
 ```javascript
-/**
- * Zenvia SMS API - Usage Examples
- *
- * Functions:
- *      setCredentials(account, token) - Set API Credentials
- *      sendSMS(payload) - Send unique and multiple SMS
- *      getSMSStatus(sms_id) - Get SMS status by ID
- *      getSMSReceivedList() - Get received SMS list
- *      getSMSReceivedListSearch(start_date, end_date) - Get received SMS list filtered by start and end date
- *      cancelScheduledSMS(sms_id) - Cancel scheduled SMS by id
- *
- */
-
 const zapi = require('zenvia-sms-core').api;
 
 zapi.setCredentials('account', 'token');
