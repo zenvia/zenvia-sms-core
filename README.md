@@ -1,4 +1,4 @@
-![Zenvia Logo](https://s3.amazonaws.com/owler-image/logo/zenvia-mobile_owler_20170111_192135_original.png)
+<img src="https://s3.amazonaws.com/owler-image/logo/zenvia-mobile_owler_20170111_192135_original.png" height="200" />
 
 # Zenvia SMS Core for NodeJS
 
