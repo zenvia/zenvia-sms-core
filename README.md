@@ -9,7 +9,7 @@ Full and official implementation of Zenvia SMS API, send, monitor status and rec
 ##### Full documentation about Zenvia API on http://docs.zenviasms.apiary.io
 
 ### Install
-`npm install zenvia-sms-core` not available!
+`npm install @zenvia/zenvia-sms-core`!
 
 ### How to create Zenvia SMS Callbacks Server
 
