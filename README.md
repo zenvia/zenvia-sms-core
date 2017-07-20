@@ -14,7 +14,7 @@ Full and official implementation of Zenvia SMS API, send, monitor status and rec
 ### How to create Zenvia SMS Callbacks Server
 
 ```javascript
-let zcs = require('zenvia-sms-core').callbacksServer;
+let zcs = require('@zenvia/zenvia-sms-core').callbacksServer;
 
 zcs.startServer(81);
 
@@ -37,7 +37,7 @@ zcs.events.on('event', (data)=>{
  *
  */
 
-const zapi = require('zenvia-sms-core').api;
+const zapi = require('@zenvia/zenvia-sms-core').api;
 
 zapi.setCredentials('account', 'token');
 
