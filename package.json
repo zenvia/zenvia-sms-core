@@ -1,6 +1,6 @@
 {
   "name": "@zenvia/zenvia-sms-core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Full and official implementation of Zenvia SMS API for NodeJS.",
   "main": "index.js",
   "scripts": {
@@ -27,10 +27,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonatasfreitasv/zenvia-sms-core.git"
+    "url": "git+https://github.com/zenvia/zenvia-sms-core.git"
   },
   "bugs": {
-    "url": "https://github.com/jonatasfreitasv/zenvia-sms-core/issues"
+    "url": "https://github.com/zenvia/zenvia-sms-core/issues"
   },
-  "homepage": "https://github.com/jonatasfreitasv/zenvia-sms-core#readme"
+  "homepage": "https://github.com/zenvia/zenvia-sms-core#readme"
 }
