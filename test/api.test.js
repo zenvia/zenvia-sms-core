@@ -135,7 +135,7 @@ describe('API', ()=>{
 
             })
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     // TODO: refactor this
     it('should getSMSStatus function return catch 401', (done) => {
@@ -155,7 +155,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should getSMSReceivedList function return catch 401', (done) => {
 
@@ -174,7 +174,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should getSMSReceivedListSearch function return catch 401', (done) => {
 
@@ -193,7 +193,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should cancelScheduledSMS function return catch 401', (done) => {
 
@@ -212,7 +212,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
 
     it('should sendSMS function return success', (done) => {
@@ -251,7 +251,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should cancelScheduledSMS function return success', (done) => {
 
@@ -297,7 +297,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     // TODO: make success tests for getSMSReceivedList and getSMSReceivedListSearch
 
