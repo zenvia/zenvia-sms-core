@@ -28,7 +28,7 @@ zcs.events.on('event', (data)=>{
 ```javascript
 /**
  * Available methods:
- *      setCredentials(account, token) - Set API Credentials
+ *      setCredentials(account, password) - Set API Credentials
  *      sendSMS(payload) - Send unique and multiple SMS
  *      getSMSStatus(sms_id) - Get SMS status by ID
  *      getSMSReceivedList() - Get received SMS list
@@ -39,7 +39,7 @@ zcs.events.on('event', (data)=>{
 
 const zapi = require('@zenvia/zenvia-sms-core').api;
 
-zapi.setCredentials('account', 'token');
+zapi.setCredentials('account', 'password');
 
 /* Send unique short and long SMS example
  */
@@ -69,7 +69,7 @@ zapi.setCredentials('account', 'token');
 run `npm install`.
 
 ### Make tests
-for success send SMS tests case in api, fill `phone_number`, `zenvia_account`, `zenvia_token` on `test/api.test.js`.
+for success send SMS tests case in api, fill `phone_number`, `zenvia_account`, `zenvia_password` on `test/api.test.js`.
 
 run `npm test`.
 

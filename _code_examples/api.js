@@ -5,7 +5,7 @@
  * Zenvia SMS API - Usage Examples
  *
  * Functions:
- *      setCredentials(account, token) - Set API Credentials
+ *      setCredentials(account, password) - Set API Credentials
  *      sendSMS(payload) - Send unique and multiple SMS
  *      getSMSStatus(sms_id) - Get SMS status by ID
  *      getSMSReceivedList() - Get received SMS list
@@ -16,7 +16,7 @@
 
 const zapi = require('../index').api;
 
-zapi.setCredentials('account', 'token');
+zapi.setCredentials('account', 'password');
 
 /* Send unique short and long SMS example
 

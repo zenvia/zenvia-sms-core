@@ -7,10 +7,10 @@ describe('API', ()=>{
 
     const phone_number = '5551999999999';
     const zenvia_account = 'acc.count';
-    const zenvia_token = 'aNythInK';
+    const zenvia_password = 'aNythInK';
 
     beforeEach(()=>{
-        zapi.setCredentials(zenvia_account, zenvia_token);
+        zapi.setCredentials(zenvia_account, zenvia_password);
     });
 
     it('should set credentials', () => {
@@ -22,7 +22,7 @@ describe('API', ()=>{
             .equal(
                 JSON.stringify({
                     account: 'abc',
-                    token: '123',
+                    password: '123',
                 })
             );
 
@@ -261,7 +261,7 @@ describe('API', ()=>{
             sendSmsRequest: {
                 from: "Zenvia API",
                 to: phone_number,
-                schedule: Date.now(),
+                schedule: Date.now() + 10000,
                 msg: "Hello from Zenvia API from NodeJS!!!",
                 callbackOption: "NONE",
                 id: sms_id,
