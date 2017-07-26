@@ -5,12 +5,12 @@ const zapi = require('../index').api;
 
 describe('API', ()=>{
 
-    const phone_number = '5551999999999';
-    const zenvia_account = 'acc.count';
-    const zenvia_token = 'aNythInK';
+    const phone_number = process.env.zenvia_phonenumber;
+    const zenvia_account = process.env.zenvia_account;
+    const zenvia_password = process.env.zenvia_password;
 
     beforeEach(()=>{
-        zapi.setCredentials(zenvia_account, zenvia_token);
+        zapi.setCredentials(zenvia_account, zenvia_password);
     });
 
     it('should set credentials', () => {

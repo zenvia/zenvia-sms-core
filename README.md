@@ -69,7 +69,7 @@ zapi.setCredentials('account', 'token');
 run `npm install`.
 
 ### Make tests
-for success send SMS tests case in api, fill `phone_number`, `zenvia_account`, `zenvia_token` on `test/api.test.js`.
+for success send SMS tests case in api, fill `zenvia_phonenumber`, `zenvia_account`, `zenvia_password` on env variables.
 
 run `npm test`.
 
