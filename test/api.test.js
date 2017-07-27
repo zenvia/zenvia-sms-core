@@ -22,7 +22,7 @@ describe('API', ()=>{
             .equal(
                 JSON.stringify({
                     account: 'abc',
-                    token: '123',
+                    password: '123',
                 })
             );
 
@@ -265,7 +265,7 @@ describe('API', ()=>{
             sendSmsRequest: {
                 from: "Zenvia API",
                 to: phone_number,
-                schedule: Date.now(),
+                schedule: Date.now() + 10000,
                 msg: "Hello from Zenvia API from NodeJS!!!",
                 callbackOption: "NONE",
                 id: sms_id,
