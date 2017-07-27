@@ -249,6 +249,10 @@ describe('API', ()=>{
 
                 done();
 
+            })
+            .catch((err)=>{
+                console.log(err);
+                done();
             });
 
     }).timeout(10000);
@@ -275,7 +279,7 @@ describe('API', ()=>{
 
                 zapi
                     .cancelScheduledSMS(sms_id)
-                    .then((res) => {
+                    .then(res => {
 
                         expect(JSON.stringify(res))
                             .to.equal(JSON.stringify({
@@ -295,6 +299,10 @@ describe('API', ()=>{
 
                     });
 
+            })
+            .catch(err => {
+                done();
+                console.log(err);
             });
 
     }).timeout(10000);
