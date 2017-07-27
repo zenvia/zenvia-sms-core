@@ -5,9 +5,9 @@ const zapi = require('../index').api;
 
 describe('API', ()=>{
 
-    const phone_number = '5551999999999';
-    const zenvia_account = 'acc.count';
-    const zenvia_password = 'aNythInK';
+    const phone_number = process.env.zenvia_phonenumber;
+    const zenvia_account = process.env.zenvia_account;
+    const zenvia_password = process.env.zenvia_password;
 
     beforeEach(()=>{
         zapi.setCredentials(zenvia_account, zenvia_password);
@@ -135,7 +135,7 @@ describe('API', ()=>{
 
             })
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     // TODO: refactor this
     it('should getSMSStatus function return catch 401', (done) => {
@@ -155,7 +155,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should getSMSReceivedList function return catch 401', (done) => {
 
@@ -174,7 +174,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should getSMSReceivedListSearch function return catch 401', (done) => {
 
@@ -193,7 +193,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should cancelScheduledSMS function return catch 401', (done) => {
 
@@ -212,7 +212,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
 
     it('should sendSMS function return success', (done) => {
@@ -251,7 +251,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should cancelScheduledSMS function return success', (done) => {
 
@@ -297,7 +297,7 @@ describe('API', ()=>{
 
             });
 
-    }).timeout(5000);
+    }).timeout(10000);
 
     // TODO: make success tests for getSMSReceivedList and getSMSReceivedListSearch
 
