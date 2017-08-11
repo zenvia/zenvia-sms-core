@@ -3,6 +3,7 @@
 # Zenvia SMS Core for NodeJS
 
 [![Build Status](https://travis-ci.org/zenvia/zenvia-sms-core.svg?branch=master)](https://travis-ci.org/zenvia/zenvia-sms-core)
+[![Coverage Status](https://coveralls.io/repos/github/zenvia/zenvia-sms-core/badge.svg)](https://coveralls.io/github/zenvia/zenvia-sms-core)
 
 Full and official implementation of Zenvia SMS API, send, monitor status and receive SMS from clients with this module.
 
