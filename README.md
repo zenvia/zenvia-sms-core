@@ -1,10 +1,10 @@
 <img src="https://s3.amazonaws.com/owler-image/logo/zenvia-mobile_owler_20170111_192135_original.png" height="200" />
 
 # Zenvia SMS Core for NodeJS
-[![NPM](https://nodei.co/npm/@zenvia/zenvia-sms-core.png)](https://nodei.co/npm/@zenvia/zenvia-sms-core/)
 
 [![Build Status](https://travis-ci.org/zenvia/zenvia-sms-core.svg?branch=master)](https://travis-ci.org/zenvia/zenvia-sms-core)
 [![Coverage Status](https://coveralls.io/repos/github/zenvia/zenvia-sms-core/badge.svg)](https://coveralls.io/github/zenvia/zenvia-sms-core)
+[![npm version](https://badge.fury.io/js/%40zenvia%2Fzenvia-sms-core.svg)](https://badge.fury.io/js/%40zenvia%2Fzenvia-sms-core)
 
 Full and official implementation of Zenvia SMS API, send, monitor status and receive SMS from clients with this module.
 
