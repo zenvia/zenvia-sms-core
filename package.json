@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
-    "lint": "eslint '**/*.js'"
+    "lint": "eslint '**/*.js'",
+    "lint:fix": "eslint '**/*.js' --fix"
   },
   "author": "Jonatas Freitas <jonatasfreitasv@gmail.com> (https://github.com/jonatasfreitasv)",
   "license": "MIT",

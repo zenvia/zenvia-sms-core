@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+
 
 /**
  * Zenvia SMS Callbacks Server - Usage Examples
@@ -38,10 +38,10 @@
  */
 
 
-let zenvia_cs = require('../index').callbacksServer;
+const zenvia_cs = require('../index').callbacksServer;
 
 zenvia_cs.startServer(81);
 
-zenvia_cs.events.on('event', (data)=>{
-    console.log(data);
+zenvia_cs.events.on('event', (data) => {
+  console.log(data);
 });
