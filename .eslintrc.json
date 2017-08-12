@@ -1,0 +1,30 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "standard"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": 2,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ]
+  },
+  "globals": {
+    "describe": true,
+    "it": true,
+    "expect": true,
+    "app": true,
+    "td": true,
+    "beforeEach": true,
+    "request": true,
+    "Joi": true,
+    "joiAssert": true
+  }
+}
