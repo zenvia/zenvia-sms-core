@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+
 
 /**
  * Zenvia SMS API - Usage Examples
@@ -54,25 +54,25 @@ Response long example:
     }
  }
  */
-let send_sms_payload = {
-    sendSmsRequest: {
-        from: "Zenvia",
-        to: "5551999999999",
-        schedule: null,
-        msg: "Hello Zenvia from NodeJS!!!",
-        callbackOption: "ALL",
-        id: '001',
-        aggregateId: "002"
-    }
+const send_sms_payload = {
+  sendSmsRequest: {
+    from: 'Zenvia',
+    to: '5551999999999',
+    schedule: null,
+    msg: 'Hello Zenvia from NodeJS!!!',
+    callbackOption: 'ALL',
+    id: '001',
+    aggregateId: '002',
+  },
 };
 
 zapi
     .sendSMS(send_sms_payload)
-    .then((res)=> {
-        console.log(res);
+    .then((res) => {
+      console.log(res);
     })
-    .catch((err)=> {
-        console.error(err);
+    .catch((err) => {
+      console.error(err);
     });
 
 /*
@@ -101,37 +101,37 @@ zapi
     }
  }
  */
-let send_multi_sms_payload = {
-    sendSmsMultiRequest: {
-        aggregateId: 1750,
-        sendSmsRequestList: [
-            {
-                from: "Zenvia",
-                to: "5551999999999",
-                schedule: null,
-                msg: "Hello Zenvia from NodeJS!!! 2",
-                callbackOption: "ALL",
-                id: '001'
-            },
-            {
-                from: "Zenvia",
-                to: "5551982193388",
-                schedule: null,
-                msg: "Hello Zenvia from NodeJS!!! 2",
-                callbackOption: "ALL",
-                id: '001'
-            }
-        ]
-    }
+const send_multi_sms_payload = {
+  sendSmsMultiRequest: {
+    aggregateId: 1750,
+    sendSmsRequestList: [
+      {
+        from: 'Zenvia',
+        to: '5551999999999',
+        schedule: null,
+        msg: 'Hello Zenvia from NodeJS!!! 2',
+        callbackOption: 'ALL',
+        id: '001',
+      },
+      {
+        from: 'Zenvia',
+        to: '5551982193388',
+        schedule: null,
+        msg: 'Hello Zenvia from NodeJS!!! 2',
+        callbackOption: 'ALL',
+        id: '001',
+      },
+    ],
+  },
 };
 
 zapi
     .sendSMS(send_multi_sms_payload)
-    .then((res)=> {
-        console.log(JSON.stringify(res));
+    .then((res) => {
+      console.log(JSON.stringify(res));
     })
-    .catch((err)=> {
-        console.error(err);
+    .catch((err) => {
+      console.error(err);
     });
 
 // TODO: create examples to getSMSStatus, getSMSReceivedList, getSMSReceivedListSearch, cancelScheduledSMS

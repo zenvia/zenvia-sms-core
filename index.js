@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+
 
 /**
  * Zenvia SMS Core for NodeJS
@@ -15,6 +15,6 @@ const api = require('./lib/api');
 const cs = require('./lib/callbacksServer');
 
 module.exports = {
-    api: api,
-    callbacksServer: cs
+  api,
+  callbacksServer: cs,
 };
