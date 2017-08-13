@@ -4,12 +4,12 @@ const expect = require('chai').expect;
 const zapi = require('../index').api;
 
 describe('API', () => {
-  const phone_number = process.env.zenvia_phonenumber;
-  const zenvia_account = process.env.zenvia_account;
-  const zenvia_password = process.env.zenvia_password;
+  const phoneNumber = process.env.zenvia_phonenumber;
+  const zenviaAccount = process.env.zenviaAccount;
+  const zenviaPassword = process.env.zenviaPassword;
 
   beforeEach(() => {
-    zapi.setCredentials(zenvia_account, zenvia_password);
+    zapi.setCredentials(zenviaAccount, zenviaPassword);
   });
 
   it('should set credentials', () => {
@@ -38,17 +38,13 @@ describe('API', () => {
             .to
             .equal(
                 JSON.stringify({
-
-                  api_hostname: 'https://api-rest.zenvia360.com.br',
-
-                  post_sms_path: '/services/send-sms',
-                  post_sms_multiple: '/services/send-sms-multiple',
-
-                  get_sms_status: '/services/get-sms-status',
-                  get_sms_received_list: '/services/received/list',
-                  get_sms_received_list_search: '/services/received/search',
-
-                  cancel_scheduled_sms: '/services/cancel-sms',
+                  apiHostName: 'https://api-rest.zenvia360.com.br',
+                  postSmsPath: '/services/send-sms',
+                  postSmsMultiple: '/services/send-sms-multiple',
+                  getSmsStatus: '/services/get-sms-status',
+                  getSmsReceivedList: '/services/received/list',
+                  getSmsReceivedListSearch: '/services/received/search',
+                  cancelScheduledSms: '/services/cancel-sms',
 
                 })
             );
@@ -56,41 +52,41 @@ describe('API', () => {
 
 
   it('should exist sendSMS function', () => {
-    const f_name = zapi.sendSMS.name;
+    const fName = zapi.sendSMS.name;
 
-    expect(f_name)
+    expect(fName)
             .to
             .equal('sendSMS');
   });
 
   it('should exist getSMSStatus function', () => {
-    const f_name = zapi.getSMSStatus.name;
+    const fName = zapi.getSMSStatus.name;
 
-    expect(f_name)
+    expect(fName)
             .to
             .equal('getSMSStatus');
   });
 
   it('should exist getSMSReceivedList function', () => {
-    const f_name = zapi.getSMSReceivedList.name;
+    const fName = zapi.getSMSReceivedList.name;
 
-    expect(f_name)
+    expect(fName)
             .to
             .equal('getSMSReceivedList');
   });
 
   it('should exist getSMSReceivedListSearch function', () => {
-    const f_name = zapi.getSMSReceivedListSearch.name;
+    const fName = zapi.getSMSReceivedListSearch.name;
 
-    expect(f_name)
+    expect(fName)
             .to
             .equal('getSMSReceivedListSearch');
   });
 
   it('should exist cancelScheduledSMS function', () => {
-    const f_name = zapi.cancelScheduledSMS.name;
+    const fName = zapi.cancelScheduledSMS.name;
 
-    expect(f_name)
+    expect(fName)
             .to
             .equal('cancelScheduledSMS');
   });
@@ -181,7 +177,7 @@ describe('API', () => {
     const payload = {
       sendSmsRequest: {
         from: 'Zenvia API',
-        to: phone_number,
+        to: phoneNumber,
         schedule: null,
         msg: 'Hello from Zenvia API from NodeJS!!!',
         callbackOption: 'NONE',
@@ -216,16 +212,16 @@ describe('API', () => {
   }).timeout(10000);
 
   it('should cancelScheduledSMS function return success', (done) => {
-    const sms_id = parseInt(Math.random() * 10000).toString();
+    const smsId = parseInt(Math.random() * 10000).toString();
 
     const payload = {
       sendSmsRequest: {
         from: 'Zenvia API',
-        to: phone_number,
+        to: phoneNumber,
         schedule: Date.now() + 10000,
         msg: 'Hello from Zenvia API from NodeJS!!!',
         callbackOption: 'NONE',
-        id: sms_id,
+        id: smsId,
         aggregateId: '777',
       },
     };
@@ -234,7 +230,7 @@ describe('API', () => {
             .sendSMS(payload)
             .then((res) => {
               zapi
-                    .cancelScheduledSMS(sms_id)
+                    .cancelScheduledSMS(smsId)
                     .then(res => {
                       expect(JSON.stringify(res))
                             .to.equal(JSON.stringify({

@@ -7,9 +7,9 @@
  * Functions:
  *      setCredentials(account, password) - Set API Credentials
  *      sendSMS(payload) - Send unique and multiple SMS
- *      getSMSStatus(sms_id) - Get SMS status by ID
+ *      getSMSStatus(smsId) - Get SMS status by ID
  *      getSMSReceivedList() - Get received SMS list
- *      getSMSReceivedListSearch(start_date, end_date) - Get received SMS list filtered by start and end date
+ *      getSMSReceivedListSearch(startDate, endDate) - Get received SMS list filtered by start and end date
  *      cancelScheduledSMS(sms_id) - Cancel scheduled SMS by id
  *
  */
@@ -54,7 +54,7 @@ Response long example:
     }
  }
  */
-const send_sms_payload = {
+const sendSmsPayload = {
   sendSmsRequest: {
     from: 'Zenvia',
     to: '5551999999999',
@@ -67,7 +67,7 @@ const send_sms_payload = {
 };
 
 zapi
-    .sendSMS(send_sms_payload)
+    .sendSMS(sendSmsPayload)
     .then((res) => {
       console.log(res);
     })
@@ -101,7 +101,7 @@ zapi
     }
  }
  */
-const send_multi_sms_payload = {
+const sendMultiSmsPayload = {
   sendSmsMultiRequest: {
     aggregateId: 1750,
     sendSmsRequestList: [
@@ -126,7 +126,7 @@ const send_multi_sms_payload = {
 };
 
 zapi
-    .sendSMS(send_multi_sms_payload)
+    .sendSMS(sendMultiSmsPayload)
     .then((res) => {
       console.log(JSON.stringify(res));
     })
