@@ -38,10 +38,10 @@
  */
 
 
-const zenvia_cs = require('../index').callbacksServer;
+const zenviaCS = require('../index').callbacksServer;
 
-zenvia_cs.startServer(81);
+zenviaCS.startServer(81);
 
-zenvia_cs.events.on('event', (data) => {
+zenviaCS.events.on('event', (data) => {
   console.log(data);
 });
