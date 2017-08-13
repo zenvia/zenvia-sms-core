@@ -217,7 +217,7 @@ describe('API', () => {
         from: 'Zenvia API',
         to: phoneNumber,
         schedule: null,
-        msg: 'Hello from Zenvia API from NodeJS!!!',
+        msg: 'Hello from Zenvia API from NodeJS - Flash Msg',
         callbackOption: 'NONE',
         id: parseInt(Math.random() * 10000).toString(),
         aggregateId: '777',
@@ -257,7 +257,7 @@ it('should sendSMS Multiple(Flash Msg) function return success', (done) => {
         sendSmsRequestList: [{
             from: "remetente",
             to: phoneNumber,
-            msg: "uma mensagem",
+            msg: 'Hello from Zenvia API from NodeJS - Flash Msg Multiple',
             callbackOption: "NONE",
             flashSms: true
           }],
