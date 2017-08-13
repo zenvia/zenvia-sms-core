@@ -211,6 +211,89 @@ describe('API', () => {
             });
   }).timeout(10000);
 
+  it('should sendSMS(Flash Msg) function return success', (done) => {
+    const payload = {
+      sendSmsRequest: {
+        from: 'Zenvia API',
+        to: phoneNumber,
+        schedule: null,
+        msg: 'Hello from Zenvia API from NodeJS!!!',
+        callbackOption: 'NONE',
+        id: parseInt(Math.random() * 10000).toString(),
+        aggregateId: '777',
+        flashSms: true
+      },
+    };
+
+    zapi
+            .sendSMS(payload)
+            .then((res) => {
+              expect(JSON.stringify(res))
+                    .to.equal(JSON.stringify({
+                      statusCode: 200,
+                      body: {
+                        sendSmsResponse: {
+                          statusCode: '00',
+                          statusDescription: 'Ok',
+                          detailCode: '000',
+                          detailDescription: 'Message Sent',
+                        },
+                      },
+                    }
+                ));
+
+              done();
+            })
+            .catch((err) => {
+              console.log(err);
+              done();
+            });
+  }).timeout(10000);
+
+it('should sendSMS Multiple(Flash Msg) function return success', (done) => {
+    const payload = {
+      sendSmsMultiRequest: {
+        aggregateId: '777',
+        sendSmsRequestList: [{
+            from: "remetente",
+            to: phoneNumber,
+            msg: "uma mensagem",
+            callbackOption: "NONE",
+            flashSms: true
+          }],
+      },
+    };
+
+    zapi
+            .sendSMS(payload)
+            .then((res) => {
+              expect(JSON.stringify(res))
+                    .to.equal(JSON.stringify({
+                      statusCode: 200,
+                      body: {
+                        sendSmsMultiResponse: {
+                          sendSmsResponseList: [{
+                            statusCode: "00",
+                            statusDescription: "Ok",
+                            detailCode: "000",
+                            detailDescription: "Message Sent",
+                            parts: [{
+                              partId: "b940441e-22c4-4865-8db6-92cecb4be4ef",
+                              order: 1
+                            }],
+                          }],
+                        },
+                      },
+                    }
+                ));
+              done();
+            })
+            .catch((err) => {
+              console.log(err);
+              done();
+            });
+  }).timeout(10000);
+
   it('should cancelScheduledSMS function return success', (done) => {
     const smsId = parseInt(Math.random() * 10000).toString();
 
