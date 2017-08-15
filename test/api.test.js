@@ -14,7 +14,6 @@ describe('API', () => {
 
   it('should set credentials', () => {
     zapi.setCredentials('abc', '123');
-
     expect(JSON.stringify(zapi.CREDENTIALS))
             .to
             .equal(
@@ -111,65 +110,56 @@ describe('API', () => {
             });
   }).timeout(10000);
 
-    // TODO: refactor this
   it('should getSMSStatus function return catch 401', (done) => {
     zapi.setCredentials('abc', '123');
+    zapi.getSMSStatus(0)
+        .then((res) => {})
+        .catch((err) => {
+          expect(JSON.stringify(err))
+                .to
+                .equal(JSON.stringify({ statusCode: 400, body: { exception: { message: 'Cannot consume content type' } } }));
 
-    zapi
-            .getSMSStatus(0)
-            .then((res) => {})
-            .catch((err) => {
-              expect(JSON.stringify(err))
-                    .to
-                    .equal(JSON.stringify({ statusCode: 400, body: { exception: { message: 'Cannot consume content type' } } }));
-
-              done();
-            });
+          done();
+        });
   }).timeout(10000);
 
   it('should getSMSReceivedList function return catch 401', (done) => {
     zapi.setCredentials('abc', '123');
+    zapi.getSMSReceivedList()
+        .then((res) => {})
+        .catch((err) => {
+          expect(JSON.stringify(err))
+                .to
+                .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
 
-    zapi
-            .getSMSReceivedList()
-            .then((res) => {})
-            .catch((err) => {
-              expect(JSON.stringify(err))
-                    .to
-                    .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
-
-              done();
-            });
+          done();
+        });
   }).timeout(10000);
 
   it('should getSMSReceivedListSearch function return catch 401', (done) => {
     zapi.setCredentials('abc', '123');
+    zapi.getSMSReceivedListSearch(Date.now(), Date.now())
+        .then((res) => {})
+        .catch((err) => {
+          expect(JSON.stringify(err))
+                .to
+                .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
 
-    zapi
-            .getSMSReceivedListSearch(Date.now(), Date.now())
-            .then((res) => {})
-            .catch((err) => {
-              expect(JSON.stringify(err))
-                    .to
-                    .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
-
-              done();
-            });
+          done();
+        });
   }).timeout(10000);
 
   it('should cancelScheduledSMS function return catch 401', (done) => {
     zapi.setCredentials('abc', '123');
+    zapi.cancelScheduledSMS(Date.now(), Date.now())
+        .then((res) => {})
+        .catch((err) => {
+          expect(JSON.stringify(err))
+                .to
+                .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
 
-    zapi
-            .cancelScheduledSMS(Date.now(), Date.now())
-            .then((res) => {})
-            .catch((err) => {
-              expect(JSON.stringify(err))
-                    .to
-                    .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
-
-              done();
-            });
+          done();
+        });
   }).timeout(10000);
 
 
@@ -186,29 +176,28 @@ describe('API', () => {
       },
     };
 
-    zapi
-            .sendSMS(payload)
-            .then((res) => {
-              expect(JSON.stringify(res))
-                    .to.equal(JSON.stringify({
-                      statusCode: 200,
-                      body: {
-                        sendSmsResponse: {
-                          statusCode: '00',
-                          statusDescription: 'Ok',
-                          detailCode: '000',
-                          detailDescription: 'Message Sent',
-                        },
-                      },
-                    }
-                ));
+    zapi.sendSMS(payload)
+        .then((res) => {
+          expect(JSON.stringify(res))
+                .to.equal(JSON.stringify({
+                  statusCode: 200,
+                  body: {
+                    sendSmsResponse: {
+                      statusCode: '00',
+                      statusDescription: 'Ok',
+                      detailCode: '000',
+                      detailDescription: 'Message Sent',
+                    },
+                  },
+                }
+            ));
 
-              done();
-            })
-            .catch((err) => {
-              console.log(err);
-              done();
-            });
+          done();
+        })
+        .catch((err) => {
+          console.log(err, "sendSMS Simple SMS");
+          done();
+        });
   }).timeout(10000);
 
   it('should sendSMS(Flash Msg) function return success', (done) => {
@@ -220,78 +209,55 @@ describe('API', () => {
         msg: 'Hello from Zenvia API from NodeJS - Flash Msg',
         callbackOption: 'NONE',
         id: parseInt(Math.random() * 10000).toString(),
-        aggregateId: '777',
+        aggregateId: 777,
         flashSms: true
-      },
+      }
     };
 
-    zapi
-            .sendSMS(payload)
-            .then((res) => {
-              expect(JSON.stringify(res))
-                    .to.equal(JSON.stringify({
-                      statusCode: 200,
-                      body: {
-                        sendSmsResponse: {
-                          statusCode: '00',
-                          statusDescription: 'Ok',
-                          detailCode: '000',
-                          detailDescription: 'Message Sent',
-                        },
-                      },
-                    }
-                ));
-
-              done();
-            })
-            .catch((err) => {
-              console.log(err);
-              done();
-            });
+    zapi.sendSMS(payload)
+        .then((res) => {
+          const response = res.body.sendSmsResponse;
+          expect(res.statusCode).to.equal(200);
+          expect(response.statusCode).to.equal('00');
+          expect(response.statusDescription).to.equal('Ok');
+          expect(response.detailCode).to.equal('000');
+          expect(response.detailDescription).to.equal('Message Sent');
+          done();
+        })
+        .catch((err) => {
+          console.log(err, 'sendSMS Simple(Flash Msg) - SMS');
+          done();
+        });
   }).timeout(10000);
 
-it('should sendSMS Multiple(Flash Msg) function return success', (done) => {
+  it('should sendSMS Multiple(Flash Msg) function return success', (done) => {
     const payload = {
       sendSmsMultiRequest: {
-        aggregateId: '777',
+        aggregateId: 777,
         sendSmsRequestList: [{
-            from: "remetente",
-            to: phoneNumber,
-            msg: 'Hello from Zenvia API from NodeJS - Flash Msg Multiple',
-            callbackOption: "NONE",
-            flashSms: true
-          }],
-      },
+          from: 'remetente',
+          to: phoneNumber,
+          msg: 'Hello from Zenvia API from NodeJS - Flash Msg Multiple',
+          callbackOption: 'NONE',
+          flashSms: true
+        }]
+      }
     };
 
-    zapi
-            .sendSMS(payload)
-            .then((res) => {
-              expect(JSON.stringify(res))
-                    .to.equal(JSON.stringify({
-                      statusCode: 200,
-                      body: {
-                        sendSmsMultiResponse: {
-                          sendSmsResponseList: [{
-                            statusCode: "00",
-                            statusDescription: "Ok",
-                            detailCode: "000",
-                            detailDescription: "Message Sent",
-                            parts: [{
-                              partId: "b940441e-22c4-4865-8db6-92cecb4be4ef",
-                              order: 1
-                            }],
-                          }],
-                        },
-                      },
-                    }
-                ));
-              done();
-            })
-            .catch((err) => {
-              console.log(err);
-              done();
-            });
+    zapi.sendSMS(payload)
+        .then((res) => {
+          const response = res.body.sendSmsMultiResponse.sendSmsResponseList[0];
+          expect(res.statusCode).to.equal(200);
+          expect(response.statusCode).to.equal('00');
+          expect(response.statusDescription).to.equal('Ok');
+          expect(response.detailCode).to.equal('000');
+          expect(response.detailDescription).to.equal('Message Sent');
+          done();
+         })
+       .catch((err) => {
+          console.log(res, "sendSMS Multiple(Flash Msg)")
+          done();
+        });
   }).timeout(10000);
 
   it('should cancelScheduledSMS function return success', (done) => {
@@ -309,34 +275,31 @@ it('should sendSMS Multiple(Flash Msg) function return success', (done) => {
       },
     };
 
-    zapi
-            .sendSMS(payload)
-            .then((res) => {
-              zapi
-                    .cancelScheduledSMS(smsId)
-                    .then(res => {
-                      expect(JSON.stringify(res))
-                            .to.equal(JSON.stringify({
-                              statusCode: 200,
-                              body: {
-                                cancelSmsResp: {
-                                  statusCode: '09',
-                                  statusDescription: 'Blocked',
-                                  detailCode: '002',
-                                  detailDescription: 'Message successfully canceled',
-                                },
-                              },
-                            }
-                        ));
+    zapi.sendSMS(payload)
+        .then((res) => {
+          zapi
+                .cancelScheduledSMS(smsId)
+                .then(res => {
+                  expect(JSON.stringify(res))
+                        .to.equal(JSON.stringify({
+                          statusCode: 200,
+                          body: {
+                            cancelSmsResp: {
+                              statusCode: '09',
+                              statusDescription: 'Blocked',
+                              detailCode: '002',
+                              detailDescription: 'Message successfully canceled',
+                            },
+                          },
+                        }
+                    ));
 
-                      done();
-                    });
-            })
-            .catch(err => {
-              done();
-              console.log(err);
-            });
+                  done();
+                });
+        })
+        .catch(err => {
+          done();
+          console.log(err, "cancelScheduledSMS");
+        });
   }).timeout(10000);
-
-    // TODO: make success tests for getSMSReceivedList and getSMSReceivedListSearch
 });
