@@ -1,12 +1,14 @@
 'use strict';
 
+require('dotenv').config()
+
 const expect = require('chai').expect;
 const zapi = require('../index').api;
 
 describe('API', () => {
-  const phoneNumber = process.env.zenvia_phonenumber;
-  const zenviaAccount = process.env.zenviaAccount;
-  const zenviaPassword = process.env.zenviaPassword;
+  const phoneNumber = process.env.ZENVIA_PHONENUMBER;
+  const zenviaAccount = process.env.ZENVIA_ACCOUNT;
+  const zenviaPassword = process.env.ZENVIA_PASSWORD;
 
   beforeEach(() => {
     zapi.setCredentials(zenviaAccount, zenviaPassword);
