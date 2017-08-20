@@ -2,16 +2,27 @@
 
 require('dotenv').config()
 
+const use_zenvia_apis_mock = true;
 const expect = require('chai').expect;
 const zapi = require('../index').api;
 
 describe('API', () => {
-  const phoneNumber = process.env.ZENVIA_PHONENUMBER;
-  const zenviaAccount = process.env.ZENVIA_ACCOUNT;
-  const zenviaPassword = process.env.ZENVIA_PASSWORD;
+
+  const hostName = 'https://zenvia-apis-mock.herokuapp.com/api-rest';
+  const phoneNumber = '5551999999200';
+  const zenviaAccount = 'user';
+  const zenviaPassword = 'pass';
+
+  if (!use_zenvia_apis_mock) { 
+    hostName = 'https://api-rest.zenvia360.com.br';
+    phoneNumber = process.env.ZENVIA_PHONENUMBER;
+    zenviaAccount = process.env.ZENVIA_ACCOUNT;
+    zenviaPassword = process.env.ZENVIA_PASSWORD;
+  }
 
   beforeEach(() => {
     zapi.setCredentials(zenviaAccount, zenviaPassword);
+    zapi.setHostName(hostName);
   });
 
   it('should set credentials', () => {
@@ -39,7 +50,7 @@ describe('API', () => {
             .to
             .equal(
                 JSON.stringify({
-                  apiHostName: 'https://api-rest.zenvia360.com.br',
+                  apiHostName: hostName,
                   postSmsPath: '/services/send-sms',
                   postSmsMultiple: '/services/send-sms-multiple',
                   getSmsStatus: '/services/get-sms-status',
@@ -70,48 +81,151 @@ describe('API', () => {
 
   it('should exist getSMSReceivedList function', () => {
     const fName = zapi.getSMSReceivedList.name;
-
-    expect(fName)
-            .to
-            .equal('getSMSReceivedList');
+    expect(fName).to.equal('getSMSReceivedList');
   });
 
   it('should exist getSMSReceivedListSearch function', () => {
     const fName = zapi.getSMSReceivedListSearch.name;
-
-    expect(fName)
-            .to
-            .equal('getSMSReceivedListSearch');
+    expect(fName).to.equal('getSMSReceivedListSearch');
   });
 
   it('should exist cancelScheduledSMS function', () => {
     const fName = zapi.cancelScheduledSMS.name;
-
-    expect(fName)
-            .to
-            .equal('cancelScheduledSMS');
+    expect(fName).to.equal('cancelScheduledSMS');
   });
 
+  it('should sendSMS function return success', (done) => {
+    const payload = {
+      sendSmsRequest: {
+        from: 'Zenvia API',
+        to: phoneNumber,
+        schedule: '2017-08-09T14:00:00',
+        msg: 'Hello from Zenvia API from NodeJS!!!',
+        callbackOption: 'NONE',
+        id: parseInt(Math.random() * 10000).toString(),
+        aggregateId: '777',
+      },
+    };
 
-  it('should sendSMS function return catch 401', (done) => {
-    zapi.setCredentials('abc', '123');
+    zapi.sendSMS(payload)
+        .then((res) => {
+          expect(JSON.stringify(res))
+                .to.equal(JSON.stringify({
+                  statusCode: 200,
+                  body: {
+                    sendSmsResponse: {
+                      statusCode: '00',
+                      statusDescription: 'Ok',
+                      detailCode: '000',
+                      detailDescription: 'Message Sent',
+                    },
+                  },
+                }
+            ));
 
-    zapi
-            .sendSMS({})
-            .then((res) => {})
-            .catch((err) => {
-              expect(JSON.stringify(err))
-                    .to
-                    .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
-
-              done();
-            })
-            .catch(err => {
-
-
-            });
+          done();
+        })
+        .catch((err) => {
+          console.log(err, "sendSMS Simple SMS");
+          done();
+        });
   }).timeout(10000);
 
+
+  it('should sendSMS(Flash Msg) function return success', (done) => {
+    const payload = {
+      sendSmsRequest: {
+        from: 'Zenvia API',
+        to: phoneNumber,
+        schedule: '2017-08-09T14:00:00',
+        msg: 'Hello from Zenvia API from NodeJS - Flash Msg',
+        callbackOption: 'NONE',
+        id: parseInt(Math.random() * 10000).toString(),
+        aggregateId: 777,
+        flashSms: true
+      }
+    };
+
+    zapi.sendSMS(payload)
+        .then((res) => {
+          const response = res.body.sendSmsResponse;
+          expect(res.statusCode).to.equal(200);
+          expect(response.statusCode).to.equal('00');
+          expect(response.statusDescription).to.equal('Ok');
+          expect(response.detailCode).to.equal('000');
+          expect(response.detailDescription).to.equal('Message Sent');
+          done();
+        })
+        .catch((err) => {
+          console.log(err, 'sendSMS Simple(Flash Msg) - SMS');
+          done();
+        });
+  }).timeout(10000);
+
+  it('should sendSMS Multiple(Flash Msg) function return success', (done) => {
+    const payload = {
+      sendSmsMultiRequest: {
+        aggregateId: 777,
+        sendSmsRequestList: [{
+          from: 'remetente',
+          to: phoneNumber,
+          msg: 'Hello from Zenvia API from NodeJS - Flash Msg Multiple',
+          callbackOption: 'NONE',
+          flashSms: true,
+          schedule: '2017-08-09T14:00:00',
+          id: parseInt(Math.random() * 10000).toString()
+        }]
+      }
+    };
+
+    zapi.sendSMS(payload)
+        .then((res) => {
+          const response = res.body.sendSmsMultiResponse.sendSmsResponseList[0];
+          expect(res.statusCode).to.equal(200);
+          expect(response.statusCode).to.equal('00');
+          expect(response.statusDescription).to.equal('Ok');
+          expect(response.detailCode).to.equal('000');
+          expect(response.detailDescription).to.equal('Message Sent');
+          done();
+         })
+       .catch((err) => {
+          console.log(res, "sendSMS Multiple(Flash Msg)")
+          done();
+        });
+  }).timeout(10000);
+
+  it('should sendSMS function return catch 401', (done) => {
+    const payload = {
+      sendSmsRequest: {
+        from: 'Zenvia API',
+        to: phoneNumber,
+        schedule: '2017-08-09T14:00:00',
+        msg: 'Hello from Zenvia API from NodeJS - Flash Msg',
+        callbackOption: 'NONE',
+        id: parseInt(Math.random() * 10000).toString(),
+        aggregateId: 777,
+        flashSms: true
+      }
+    };
+
+    // Invalid credentials
+    zapi.setCredentials('abc', '123');
+    zapi.sendSMS(payload)
+        .then((res) => {})
+        .catch((err) => {
+          expect(JSON.stringify(err))
+                .to
+                .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
+
+          done();
+        })
+        .catch(err => {
+          console.log(res, "sendSMS function return catch 401")
+          done();
+        });
+  }).timeout(10000);
+
+/*
   it('should getSMSStatus function return catch 401', (done) => {
     zapi.setCredentials('abc', '123');
     zapi.getSMSStatus(0)
@@ -165,103 +279,6 @@ describe('API', () => {
   }).timeout(10000);
 
 
-  it('should sendSMS function return success', (done) => {
-    const payload = {
-      sendSmsRequest: {
-        from: 'Zenvia API',
-        to: phoneNumber,
-        schedule: null,
-        msg: 'Hello from Zenvia API from NodeJS!!!',
-        callbackOption: 'NONE',
-        id: parseInt(Math.random() * 10000).toString(),
-        aggregateId: '777',
-      },
-    };
-
-    zapi.sendSMS(payload)
-        .then((res) => {
-          expect(JSON.stringify(res))
-                .to.equal(JSON.stringify({
-                  statusCode: 200,
-                  body: {
-                    sendSmsResponse: {
-                      statusCode: '00',
-                      statusDescription: 'Ok',
-                      detailCode: '000',
-                      detailDescription: 'Message Sent',
-                    },
-                  },
-                }
-            ));
-
-          done();
-        })
-        .catch((err) => {
-          console.log(err, "sendSMS Simple SMS");
-          done();
-        });
-  }).timeout(10000);
-
-  it('should sendSMS(Flash Msg) function return success', (done) => {
-    const payload = {
-      sendSmsRequest: {
-        from: 'Zenvia API',
-        to: phoneNumber,
-        schedule: null,
-        msg: 'Hello from Zenvia API from NodeJS - Flash Msg',
-        callbackOption: 'NONE',
-        id: parseInt(Math.random() * 10000).toString(),
-        aggregateId: 777,
-        flashSms: true
-      }
-    };
-
-    zapi.sendSMS(payload)
-        .then((res) => {
-          const response = res.body.sendSmsResponse;
-          expect(res.statusCode).to.equal(200);
-          expect(response.statusCode).to.equal('00');
-          expect(response.statusDescription).to.equal('Ok');
-          expect(response.detailCode).to.equal('000');
-          expect(response.detailDescription).to.equal('Message Sent');
-          done();
-        })
-        .catch((err) => {
-          console.log(err, 'sendSMS Simple(Flash Msg) - SMS');
-          done();
-        });
-  }).timeout(10000);
-
-  it('should sendSMS Multiple(Flash Msg) function return success', (done) => {
-    const payload = {
-      sendSmsMultiRequest: {
-        aggregateId: 777,
-        sendSmsRequestList: [{
-          from: 'remetente',
-          to: phoneNumber,
-          msg: 'Hello from Zenvia API from NodeJS - Flash Msg Multiple',
-          callbackOption: 'NONE',
-          flashSms: true
-        }]
-      }
-    };
-
-    zapi.sendSMS(payload)
-        .then((res) => {
-          const response = res.body.sendSmsMultiResponse.sendSmsResponseList[0];
-          expect(res.statusCode).to.equal(200);
-          expect(response.statusCode).to.equal('00');
-          expect(response.statusDescription).to.equal('Ok');
-          expect(response.detailCode).to.equal('000');
-          expect(response.detailDescription).to.equal('Message Sent');
-          done();
-         })
-       .catch((err) => {
-          console.log(res, "sendSMS Multiple(Flash Msg)")
-          done();
-        });
-  }).timeout(10000);
-
   it('should cancelScheduledSMS function return success', (done) => {
     const smsId = parseInt(Math.random() * 10000).toString();
 
@@ -304,4 +321,5 @@ describe('API', () => {
           console.log(err, "cancelScheduledSMS");
         });
   }).timeout(10000);
+  */
 });
