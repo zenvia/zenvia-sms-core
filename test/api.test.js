@@ -8,12 +8,16 @@ const zapi = require('../index').api;
 
 describe('API', () => {
 
+  const smsId = 0;
+  const timeout = 15000;
   const hostName = 'https://zenvia-apis-mock.herokuapp.com/api-rest';
   const phoneNumber = '5551999999200';
   const zenviaAccount = 'user';
   const zenviaPassword = 'pass';
 
-  if (!use_zenvia_apis_mock) { 
+  if (!use_zenvia_apis_mock) {
+    smsId = parseInt(Math.random() * 10000).toString();
+    timeout = 10000; 
     hostName = 'https://api-rest.zenvia360.com.br';
     phoneNumber = process.env.ZENVIA_PHONENUMBER;
     zenviaAccount = process.env.ZENVIA_ACCOUNT;
@@ -62,36 +66,24 @@ describe('API', () => {
             );
   });
 
-
   it('should exist sendSMS function', () => {
-    const fName = zapi.sendSMS.name;
-
-    expect(fName)
-            .to
-            .equal('sendSMS');
+    expect(zapi.sendSMS.name).to.equal('sendSMS');
   });
 
   it('should exist getSMSStatus function', () => {
-    const fName = zapi.getSMSStatus.name;
-
-    expect(fName)
-            .to
-            .equal('getSMSStatus');
+    expect(zapi.getSMSStatus.name).to.equal('getSMSStatus');
   });
 
   it('should exist getSMSReceivedList function', () => {
-    const fName = zapi.getSMSReceivedList.name;
-    expect(fName).to.equal('getSMSReceivedList');
+    expect(zapi.getSMSReceivedList.name).to.equal('getSMSReceivedList');
   });
 
   it('should exist getSMSReceivedListSearch function', () => {
-    const fName = zapi.getSMSReceivedListSearch.name;
-    expect(fName).to.equal('getSMSReceivedListSearch');
+    expect(zapi.getSMSReceivedListSearch.name).to.equal('getSMSReceivedListSearch');
   });
 
   it('should exist cancelScheduledSMS function', () => {
-    const fName = zapi.cancelScheduledSMS.name;
-    expect(fName).to.equal('cancelScheduledSMS');
+    expect(zapi.cancelScheduledSMS.name).to.equal('cancelScheduledSMS');
   });
 
   it('should sendSMS function return success', (done) => {
@@ -129,7 +121,7 @@ describe('API', () => {
           console.log(err, "sendSMS Simple SMS");
           done();
         });
-  }).timeout(10000);
+  }).timeout(timeout);
 
 
   it('should sendSMS(Flash Msg) function return success', (done) => {
@@ -160,7 +152,7 @@ describe('API', () => {
           console.log(err, 'sendSMS Simple(Flash Msg) - SMS');
           done();
         });
-  }).timeout(10000);
+  }).timeout(timeout);
 
   it('should sendSMS Multiple(Flash Msg) function return success', (done) => {
     const payload = {
@@ -192,7 +184,7 @@ describe('API', () => {
           console.log(res, "sendSMS Multiple(Flash Msg)")
           done();
         });
-  }).timeout(10000);
+  }).timeout(timeout);
 
   it('should sendSMS function return catch 401', (done) => {
     const payload = {
@@ -208,7 +200,7 @@ describe('API', () => {
       }
     };
 
-    // Invalid credentials
+    // Setting invalid credentials
     zapi.setCredentials('abc', '123');
     zapi.sendSMS(payload)
         .then((res) => {})
@@ -223,22 +215,50 @@ describe('API', () => {
           console.log(res, "sendSMS function return catch 401")
           done();
         });
-  }).timeout(10000);
+  }).timeout(timeout);
 
-/*
   it('should getSMSStatus function return catch 401', (done) => {
     zapi.setCredentials('abc', '123');
-    zapi.getSMSStatus(0)
+    zapi.getSMSStatus(smsId)
         .then((res) => {})
         .catch((err) => {
           expect(JSON.stringify(err))
                 .to
-                .equal(JSON.stringify({ statusCode: 400, body: { exception: { message: 'Cannot consume content type' } } }));
-
+                .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
           done();
         });
-  }).timeout(10000);
+  }).timeout(timeout);
 
+  it('should getSMSStatus function return success', (done) => { 
+    zapi.getSMSStatus(smsId)
+        .then((res) => {
+          expect(JSON.stringify(res))
+                .to.equal(JSON.stringify({
+                  statusCode: 200,
+                  body: {
+                    getSmsStatusResp: {
+                      id: '0',
+                      received: '2017-08-20T18:56:57',
+                      shortcode: null,
+                      mobileOperatorName: 'vivo',
+                      statusCode: '02',
+                      statusDescription: 'Sent',
+                      detailCode: '133',
+                      detailDescription: 'Message content in analysis' 
+                    },
+                  },
+                }
+            ));
+
+          done();
+        })
+        .catch((err) => {
+          console.log(err, "getSMSStatus function return success");
+          done();
+        });
+  }).timeout(timeout);
+
+/*
   it('should getSMSReceivedList function return catch 401', (done) => {
     zapi.setCredentials('abc', '123');
     zapi.getSMSReceivedList()
