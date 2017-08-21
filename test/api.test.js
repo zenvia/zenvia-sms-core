@@ -258,6 +258,23 @@ describe('API', () => {
         });
   }).timeout(timeout);
 
+  it('should cancelScheduledSMS function return success', (done) => {
+      zapi.cancelScheduledSMS(smsId)
+          .then(res => {
+            const response = res.body.cancelSmsResp;
+            expect(res.statusCode).to.equal(200);
+            expect(response.statusCode).to.equal('09');
+            expect(response.statusDescription).to.equal('Blocked');
+            expect(response.detailCode).to.equal('002');
+            expect(response.detailDescription).to.equal('Message successfully canceled');
+            done();
+          })
+        .catch(err => {
+          done();
+          console.log(err, "cancelScheduledSMS");
+        });
+  }).timeout(timeout);
+
 /*
   it('should getSMSReceivedList function return catch 401', (done) => {
     zapi.setCredentials('abc', '123');
@@ -295,50 +312,6 @@ describe('API', () => {
                 .equal(JSON.stringify({ statusCode: 401, body: 'Bad credentials' }));
 
           done();
-        });
-  }).timeout(10000);
-
-
-  it('should cancelScheduledSMS function return success', (done) => {
-    const smsId = parseInt(Math.random() * 10000).toString();
-
-    const payload = {
-      sendSmsRequest: {
-        from: 'Zenvia API',
-        to: phoneNumber,
-        schedule: Date.now() + 10000,
-        msg: 'Hello from Zenvia API from NodeJS!!!',
-        callbackOption: 'NONE',
-        id: smsId,
-        aggregateId: '777',
-      },
-    };
-
-    zapi.sendSMS(payload)
-        .then((res) => {
-          zapi
-                .cancelScheduledSMS(smsId)
-                .then(res => {
-                  expect(JSON.stringify(res))
-                        .to.equal(JSON.stringify({
-                          statusCode: 200,
-                          body: {
-                            cancelSmsResp: {
-                              statusCode: '09',
-                              statusDescription: 'Blocked',
-                              detailCode: '002',
-                              detailDescription: 'Message successfully canceled',
-                            },
-                          },
-                        }
-                    ));
-
-                  done();
-                });
-        })
-        .catch(err => {
-          done();
-          console.log(err, "cancelScheduledSMS");
         });
   }).timeout(10000);
   */
