@@ -38,7 +38,7 @@ describe('API', () => {
             .to
             .equal(
                 JSON.stringify({
-                  apiHostName: 'https://api-rest.zenvia360.com.br',
+                  apiHostName: 'https://api-rest.zenvia.com',
                   postSmsPath: '/services/send-sms',
                   postSmsMultiple: '/services/send-sms-multiple',
                   getSmsStatus: '/services/get-sms-status',
