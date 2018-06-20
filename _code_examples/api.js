@@ -9,7 +9,8 @@
  *      sendSMS(payload) - Send unique and multiple SMS
  *      getSMSStatus(smsId) - Get SMS status by ID
  *      getSMSReceivedList() - Get received SMS list
- *      getSMSReceivedListSearch(startDate, endDate) - Get received SMS list filtered by start and end date
+ *      getSMSReceivedListSearch(startDate, endDate)
+ *        - Get received SMS list filtered by start and end date
  *      cancelScheduledSMS(sms_id) - Cancel scheduled SMS by id
  *
  */
@@ -67,13 +68,13 @@ const sendSmsPayload = {
 };
 
 zapi
-    .sendSMS(sendSmsPayload)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  .sendSMS(sendSmsPayload)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 /*
  Send multiple SMS example
@@ -126,12 +127,13 @@ const sendMultiSmsPayload = {
 };
 
 zapi
-    .sendSMS(sendMultiSmsPayload)
-    .then((res) => {
-      console.log(JSON.stringify(res));
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  .sendSMS(sendMultiSmsPayload)
+  .then((res) => {
+    console.log(JSON.stringify(res));
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
-// TODO: create examples to getSMSStatus, getSMSReceivedList, getSMSReceivedListSearch, cancelScheduledSMS
+// TODO: create examples to getSMSStatus, getSMSReceivedList,
+// getSMSReceivedListSearch, cancelScheduledSMS
