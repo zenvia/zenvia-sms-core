@@ -20,21 +20,23 @@ describe('API', () => {
       .equal(JSON.stringify({
           account: 'abc',
           password: '123',
-        }),
+        })
       );
   });
 
   it('should get default headers', () => {
     expect(JSON.stringify(zapi.DEFAULT_HEADER))
       .to
-      .equal(JSON.stringify({ Accept: 'application/json', 'Content-Type': 'application/json' }),
+      .equal(
+        JSON.stringify({ Accept: 'application/json', 'Content-Type': 'application/json' })
       );
   });
 
   it('should get default zenvia api endpoints', () => {
     expect(JSON.stringify(zapi.ZENVIA_API))
       .to
-      .equal(JSON.stringify({
+      .equal(
+        JSON.stringify({
           apiHostName: 'https://api-rest.zenvia.com',
           postSmsPath: '/services/send-sms',
           postSmsMultiple: '/services/send-sms-multiple',
@@ -42,8 +44,7 @@ describe('API', () => {
           getSmsReceivedList: '/services/received/list',
           getSmsReceivedListSearch: '/services/received/search',
           cancelScheduledSms: '/services/cancel-sms',
-
-        }),
+        })
       );
   });
 
@@ -197,8 +198,8 @@ describe('API', () => {
                 detailDescription: 'Message Sent',
               },
             },
-          },
-          ));
+          }
+        ));
 
         done();
       })
@@ -240,8 +241,8 @@ describe('API', () => {
                     detailDescription: 'Message successfully canceled',
                   },
                 },
-              },
-              ));
+              })
+            );
 
             done();
           });
